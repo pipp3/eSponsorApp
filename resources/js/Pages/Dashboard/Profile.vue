@@ -66,10 +66,10 @@ function copyUrl() {
       </div>
 
       <form @submit.prevent="submit">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="flex flex-col lg:grid lg:grid-cols-3 gap-6">
           
           <!-- Formulario - 2 columnas -->
-          <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6">
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
               
@@ -173,16 +173,16 @@ function copyUrl() {
             </div>
 
             <!-- Botones -->
-            <div class="flex items-center justify-between mt-6 pt-6 border-t border-slate-200">
-              <div class="text-sm text-slate-500">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mt-6 pt-6 border-t border-slate-200 gap-3 sm:gap-0">
+              <div class="text-sm text-slate-500 text-center sm:text-left">
                 <span v-if="form.slug">Tu URL: </span>
-                <a v-if="form.slug" :href="publicUrl" target="_blank" class="text-blue-600 hover:text-blue-700 font-medium">
+                <a v-if="form.slug" :href="publicUrl" target="_blank" class="text-blue-600 hover:text-blue-700 font-medium break-all">
                   {{ publicUrl }}
                 </a>
               </div>
               <button
                 type="submit"
-                class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-lg transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-lg transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 :disabled="form.processing || !isFormValid"
               >
                 <ArrowPathIcon v-if="form.processing" class="animate-spin h-4 w-4" />
@@ -193,8 +193,8 @@ function copyUrl() {
           </div>
 
           <!-- Vista Previa - 1 columna -->
-          <div class="lg:col-span-1">
-            <div class="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl border border-slate-200 p-6 sticky top-24">
+          <div class="lg:col-span-1 order-first lg:order-last">
+            <div class="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl border border-slate-200 p-6 lg:sticky lg:top-24">
               
               <div class="text-center space-y-4">
                 <div class="inline-block">

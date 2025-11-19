@@ -13,27 +13,26 @@ Plataforma de creadores para recibir apoyos y gestionar enlaces de redes sociale
 
 ## Tecnologías
 
-- **Backend:** Laravel 11
-- **Frontend:** Vue 3 + Inertia.js
-- **Base de datos:** MySQL
-- **Estilos:** Tailwind CSS
-- **Iconos:** HeroIcons
+- **Backend:** Laravel 12
+- **Frontend:** Vue 3.4 + Inertia.js 2.0
+- **Base de datos:** SQLite
+- **Estilos:** Tailwind CSS 3.2
+- **Iconos:** HeroIcons 2.2
 
 ## Requisitos Previos
 
 - PHP >= 8.2
 - Composer
 - Node.js >= 18.x
-- NPM o Yarn
-- MySQL >= 8.0
+- NPM
 
 ## Instalación
 
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <url-del-repositorio>
-cd esponsor-challenge
+git clone https://github.com/pipp3/eSponsorApp.git
+cd eSponsorApp
 ```
 
 ### 2. Instalar dependencias de PHP
@@ -50,69 +49,43 @@ npm install
 
 ### 4. Configurar variables de entorno
 
-Copia el archivo de ejemplo y configúralo:
+Copia el archivo de ejemplo:
 
 ```bash
 copy .env.example .env
 ```
 
-Edita el archivo `.env` con tu configuración:
+Edita el archivo `.env` y asegúrate de tener esta configuración:
 
 ```env
-APP_NAME=eSponsor
+APP_NAME="eSponsor App"
 APP_ENV=local
-APP_KEY=
 APP_DEBUG=true
-APP_TIMEZONE=UTC
 APP_URL=http://localhost:8000
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=esponsor
-DB_USERNAME=root
-DB_PASSWORD=tu_password
-
-SESSION_DRIVER=database
+DB_CONNECTION=sqlite
+DB_DATABASE=database/esponsor.sqlite
 ```
 
-### 5. Generar la clave de aplicación
+### 5. Crear el archivo de base de datos SQLite
 
 ```bash
-php artisan key:generate
+type nul > database\esponsor.sqlite
 ```
 
-### 6. Crear la base de datos
-
-Crea una base de datos MySQL llamada `esponsor` (o el nombre que hayas configurado en `DB_DATABASE`):
-
-```sql
-CREATE DATABASE esponsor CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-
-### 7. Ejecutar migraciones
+### 6. Ejecutar migraciones
 
 ```bash
 php artisan migrate
 ```
 
-### 8. Compilar assets
-
-Para desarrollo:
+### 7. Compilar assets (en una terminal)
 
 ```bash
 npm run dev
 ```
 
-Para producción:
-
-```bash
-npm run build
-```
-
-### 9. Iniciar el servidor
-
-En una terminal separada, ejecuta:
+### 8. Iniciar el servidor (en otra terminal)
 
 ```bash
 php artisan serve
@@ -130,17 +103,17 @@ La aplicación estará disponible en: `http://localhost:8000`
 ### 2. Configurar perfil
 
 - Accede a tu dashboard en `/dashboard/profile`
-- Configura tu:
+- Configura:
   - Nombre público
-  - Slug único (URL personalizada)
+  - Slug único (tu URL personalizada)
   - Avatar (URL de imagen)
   - Biografía
 
 ### 3. Gestionar enlaces
 
 - Ve a `/dashboard/links`
-- Agrega enlaces a tus redes sociales o contenido
-- Reordena con drag & drop usando el botón "Editar Orden"
+- Agrega enlaces a tus redes sociales
+- Usa "Editar Orden" para reordenar con drag & drop
 
 ### 4. Ver perfil público
 
@@ -149,79 +122,48 @@ La aplicación estará disponible en: `http://localhost:8000`
 
 ### 5. Recibir apoyos
 
-- Los visitantes pueden apoyarte desde tu perfil público
-- Visualiza todos los apoyos recibidos en `/dashboard/supports`
+- Los visitantes pueden donarte desde tu perfil público
+- Visualiza los apoyos en `/dashboard/supports`
 
 ## Estructura del Proyecto
 
 ```
-esponsor-challenge/
+eSponsorApp/
 ├── app/
 │   ├── Http/Controllers/
-│   │   ├── Auth/                 # Autenticación
-│   │   └── Creator/              # Funcionalidades del creador
-│   ├── Models/                   # Modelos (User, Link, Support)
-│   └── Policies/                 # Políticas de autorización
+│   │   ├── Auth/                 # Autenticación (login/register)
+│   │   └── Creator/              # Perfil, links y apoyos
+│   ├── Models/                   # User, Link, Support
+│   └── Policies/                 # LinkPolicy
 ├── database/
-│   └── migrations/               # Migraciones de BD
+│   ├── migrations/               # Migraciones de BD
+│   └── esponsor.sqlite           # Base de datos SQLite
 ├── resources/
 │   ├── js/
-│   │   ├── Components/           # Componentes Vue reutilizables
-│   │   ├── Layouts/              # Layouts (Dashboard, Guest)
-│   │   └── Pages/                # Páginas Inertia
-│   └── css/                      # Estilos Tailwind
+│   │   ├── Components/           # Modal, Checkbox, TextInput
+│   │   ├── Layouts/              # DashboardLayout, GuestLayout
+│   │   └── Pages/                # Vistas Vue
+│   └── css/                      # app.css (Tailwind)
 └── routes/
     ├── web.php                   # Rutas principales
-    └── auth.php                  # Rutas de autenticación
+    └── auth.php                  # Login, register, logout
 ```
 
 ## Comandos Útiles
 
 ```bash
-# Limpiar caché de configuración
-php artisan config:clear
-
-# Limpiar caché de rutas
-php artisan route:clear
-
-# Limpiar caché de vistas
-php artisan view:clear
-
 # Ver todas las rutas
 php artisan route:list
 
-# Ejecutar en modo desarrollo (hot reload)
-npm run dev
+# Limpiar cachés
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 
-# Compilar para producción
-npm run build
-```
-
-## Troubleshooting
-
-### Error de permisos en storage/
-
-```bash
-# Windows (ejecutar como administrador)
-icacls storage /grant "IIS_IUSRS:(OI)(CI)F" /T
-icacls bootstrap/cache /grant "IIS_IUSRS:(OI)(CI)F" /T
-
-# Linux/Mac
-chmod -R 775 storage bootstrap/cache
-```
-
-### Error de conexión a la base de datos
-
-- Verifica que MySQL esté corriendo
-- Confirma las credenciales en `.env`
-- Asegúrate de que la base de datos existe
-
-### Error "Vite manifest not found"
-
-```bash
+# Compilar assets para producción
 npm run build
 ```
 
 ## Licencia
 
-Este proyecto es de código abierto bajo la licencia MIT.
+MIT

@@ -59,7 +59,7 @@ const maxWidthClass = computed(() => ({
         ref="dialog"
         class="z-50 m-0 p-0 bg-transparent backdrop:bg-transparent"
     >
-        <div class="fixed inset-0 z-50 overflow-y-auto px-4 py-6 sm:px-0">
+        <div class="fixed inset-0 z-50 overflow-y-auto px-4 py-4 sm:py-6">
 
             <!-- Overlay -->
             <Transition
@@ -80,15 +80,15 @@ const maxWidthClass = computed(() => ({
             <!-- Modal card -->
             <Transition
                 enter-active-class="ease-out duration-300"
-                enter-from-class="opacity-0 translate-y-8 sm:translate-y-0 sm:scale-95"
+                enter-from-class="opacity-0 translate-y-4 sm:translate-y-8 sm:translate-y-0 sm:scale-95"
                 enter-to-class="opacity-100 translate-y-0 sm:scale-100"
                 leave-active-class="ease-in duration-200"
                 leave-from-class="opacity-100 translate-y-0 sm:scale-100"
-                leave-to-class="opacity-0 translate-y-8 sm:translate-y-0 sm:scale-95"
+                leave-to-class="opacity-0 translate-y-4 sm:translate-y-8 sm:translate-y-0 sm:scale-95"
             >
                 <div
                     v-show="show"
-                    class="mx-auto mt-10 overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:w-full relative z-10"
+                    class="mx-auto mt-4 sm:mt-10 overflow-hidden rounded-lg bg-white shadow-xl transition-all w-full sm:w-auto relative z-10"
                     :class="maxWidthClass"
                     @click.stop
                 >

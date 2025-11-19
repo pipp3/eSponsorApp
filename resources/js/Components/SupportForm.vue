@@ -40,13 +40,13 @@ function submit() {
 </script>
 
 <template>
-  <div class="p-6">
-    <div class="mb-6">
-      <h2 class="text-2xl font-bold text-gray-900">Enviar Apoyo</h2>
-      <p class="text-sm text-gray-600 mt-1">Apoya a este creador con un mensaje y una contribución</p>
+  <div class="p-4 sm:p-6">
+    <div class="mb-4 sm:mb-6">
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Enviar Apoyo</h2>
+      <p class="text-xs sm:text-sm text-gray-600 mt-1">Apoya a este creador con un mensaje y una contribución</p>
     </div>
 
-    <form @submit.prevent="submit" class="space-y-5">
+    <form @submit.prevent="submit" class="space-y-4 sm:space-y-5">
       
       <!-- Nombre del apoyo -->
       <div>
@@ -57,7 +57,7 @@ function submit() {
           id="supporter_name"
           v-model="form.supporter_name" 
           type="text"
-          class="w-full border rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          class="w-full border rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-sm sm:text-base"
           :class="{
             'border-red-500': form.errors.supporter_name,
             'border-gray-300': !form.errors.supporter_name
@@ -66,7 +66,7 @@ function submit() {
           maxlength="255"
           required
         />
-        <p v-if="form.errors.supporter_name" class="text-red-500 text-sm mt-1">
+        <p v-if="form.errors.supporter_name" class="text-red-500 text-xs sm:text-sm mt-1">
           {{ form.errors.supporter_name }}
         </p>
       </div>
@@ -77,7 +77,7 @@ function submit() {
           Monto <span class="text-red-500">*</span>
         </label>
         <div class="relative">
-          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
+          <span class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold text-sm sm:text-base">$</span>
           <input 
             id="amount"
             v-model.number="form.amount" 
@@ -85,7 +85,7 @@ function submit() {
             min="1" 
             max="100"
             step="1"
-            class="w-full border rounded-lg pl-8 pr-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            class="w-full border rounded-lg pl-6 sm:pl-8 pr-3 sm:pr-4 py-2 sm:py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-sm sm:text-base"
             :class="{
               'border-red-500': form.errors.amount,
               'border-gray-300': !form.errors.amount
@@ -93,7 +93,7 @@ function submit() {
             required
           />
         </div>
-        <p v-if="form.errors.amount" class="text-red-500 text-sm mt-1">
+        <p v-if="form.errors.amount" class="text-red-500 text-xs sm:text-sm mt-1">
           {{ form.errors.amount }}
         </p>
         <p v-else class="text-gray-500 text-xs mt-1">
@@ -110,7 +110,7 @@ function submit() {
           id="message"
           v-model="form.message" 
           rows="3"
-          class="w-full border rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+          class="w-full border rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none text-sm sm:text-base"
           :class="{
             'border-red-500': form.errors.message,
             'border-gray-300': !form.errors.message
@@ -119,7 +119,7 @@ function submit() {
           maxlength="500"
         ></textarea>
         <div class="flex justify-between items-center mt-1">
-          <p v-if="form.errors.message" class="text-red-500 text-sm">
+          <p v-if="form.errors.message" class="text-red-500 text-xs sm:text-sm">
             {{ form.errors.message }}
           </p>
           <p class="text-gray-400 text-xs ml-auto">
@@ -129,18 +129,19 @@ function submit() {
       </div>
 
       <!-- Botones -->
-      <div class="flex gap-3 pt-2">
+      <div class="flex gap-2 sm:gap-3 pt-2">
         <button 
           type="submit"
-          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 sm:py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-sm sm:text-base"
           :disabled="form.processing || !isFormValid"
         >
           <span v-if="form.processing" class="flex items-center justify-center gap-2">
-            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg class="animate-spin h-4 w-4 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            Enviando...
+            <span class="hidden sm:inline">Enviando...</span>
+            <span class="sm:hidden">Enviando</span>
           </span>
           <span v-else>Enviar Apoyo de ${{ form.amount }}</span>
         </button>
